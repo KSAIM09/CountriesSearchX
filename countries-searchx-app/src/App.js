@@ -6,7 +6,7 @@ const CountryContainer = ({ country }) => (
   <div
     style={{
       textAlign: "center",
-      border: "0.5px solid #EEE",
+      border: "0.5px solid black",
       borderRadius: "8px",
       padding: "10px",
     }}
