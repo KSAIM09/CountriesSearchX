@@ -1,84 +1,67 @@
 import React, { useState, useEffect } from "react";
-import './App.css'
-const CountryContainer = ({ country }) => (
-  <div
-    style={{
-      textAlign: "center",
-      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-      borderRadius: "8px",
-      padding: "10px",
-      margin: "10px",
-    }}
-  >
-    <img
-      src={country.flags.png}
-      alt={`${country.name.common} flag`}
-      style={{ width: "100px", height: "auto" }}
-    />
-    <p>{country.name.common}</p>
-  </div>
-);
 
-const CountryFlags = () => {
+const App = () => {
   const [countries, setCountries] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("https://restcountries.com/v3.1/all");
-        if (!response.ok) {
-          throw new Error("Failed to fetch countries data");
-        }
-
-        const data = await response.json();
-        setCountries(data);
-      } catch (error) {
-        console.error("Error fetching data:", error.message);
-      }
-    };
-
-    fetchData();
+    fetch("https://restcountries.com/v3.1/all")
+      .then((response) => response.json())
+      .then((data) => setCountries(data))
+      .catch((error) => console.error("Error fetching countries:", error));
   }, []);
 
+  const handleSearchChange = (event) => {
+    setSearch(event.target.value);
+  };
+
   const filteredCountries = countries.filter((country) =>
-    country.name.common.toLowerCase().includes(searchTerm.toLowerCase())
+    country.name.common.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
-    <div>
-      <nav
-        className="nav"
-        style={{ boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", padding: "10px" }}
-      >
-        <input
-          type="text"
-          placeholder="Search for a country"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          style={{
-            width: "80%",
-            maxWidth: "500px",
-            padding: "8px",
-            marginTop: "30px",
-          }}
-        />
-      </nav>
-
+    <div
+      className="App"
+      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
+      <input
+        type="text"
+        placeholder="Search..."
+        value={search}
+        onChange={handleSearchChange}
+      />
       <div
+        className="card-grid"
         style={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          padding: "20px",
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+          gridGap: "10px",
+          width: "100%",
         }}
       >
         {filteredCountries.map((country) => (
-          <CountryContainer key={country.cca2} country={country} />
+          <div
+            className="card"
+            key={country.alpha3Code}
+            style={{
+              border: "1px solid #ccc",
+              padding: "20px",
+              boxShadow: "2px 2px 6px #ccc",
+              borderRadius: "5px",
+              textAlign: "center",
+            }}
+          >
+            <img
+              src={country.flags.svg}
+              alt={country.name.common}
+              style={{ width: "100px", height: "75px" }}
+            />
+            <h3>{country.name.common}</h3>
+          </div>
         ))}
       </div>
     </div>
   );
 };
 
-export default CountryFlags;
+export default App;
