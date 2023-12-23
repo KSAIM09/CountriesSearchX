@@ -26,7 +26,12 @@ const App = () => {
     >
       <nav
         className="nav"
-        style={{ boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", padding: "10px", width: "100%", marginBottom: "20px" }}
+        style={{
+          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+          padding: "10px",
+          width: "100%",
+          marginBottom: "20px",
+        }}
       >
         <input
           type="text"
@@ -35,7 +40,7 @@ const App = () => {
           onChange={handleSearchChange}
           style={{
             width: "60%",
-            maxWidth: "100%",
+            maxWidth: "60%",
             padding: "8px",
             marginTop: "30px",
           }}
@@ -48,17 +53,16 @@ const App = () => {
           gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
           gridGap: "10px",
           width: "80%",
-          margin: "0px 40px"
         }}
       >
         {filteredCountries.map((country) => (
           <div
             className="card"
-            key={country.cca2}
+            key={country.alpha3Code}
             style={{
               border: "1px solid #ccc",
               padding: "20px",
-              
+              boxShadow: "2px 2px 6px #ccc",
               borderRadius: "5px",
               textAlign: "center",
             }}
