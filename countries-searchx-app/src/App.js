@@ -1,83 +1,69 @@
 import React, { useState, useEffect } from "react";
-import './App.css';
-const App = () => {
+import App2 from "./App2";
+import './App.css'
+
+const CountryFlags = () => {
   const [countries, setCountries] = useState([]);
-  const [search, setSearch] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    fetch("https://restcountries.com/v3.1/all")
-      .then((response) => response.json())
-      .then((data) => setCountries(data))
-      .catch((error) => console.error("Error fetching countries:", error));
+    const fetchData = async () => {
+      try {
+        const response = await fetch("https://restcountries.com/v3.1/all");
+        if (!response.ok) {
+          throw new Error("Failed to fetch countries data");
+        }
+
+        const data = await response.json();
+        setCountries(data);
+      } catch (error) {
+        console.error("Error fetching data:", error.message);
+      }
+    };
+
+    fetchData();
   }, []);
 
-  const handleSearchChange = (event) => {
-    setSearch(event.target.value);
-  };
-
   const filteredCountries = countries.filter((country) =>
-    country.name.common.toLowerCase().includes(search.toLowerCase())
+    country.name.common.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
-    <div
-      className="App"
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-    >
+    <div>
       <nav
-        className="nav"
-        style={{
-          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-          padding: "10px",
-          width: "100%",
-          marginBottom: "20px",
-        }}
+      className="nav"
+        style={{ boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", padding: "10px" }}
       >
         <input
           type="text"
-          placeholder="Search Country"
-          value={search}
-          onChange={handleSearchChange}
+          placeholder="Search for a country"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
           style={{
-            width: "60%",
-            maxWidth: "60%",
+            width: "80%",
+            maxWidth: "500px",
             padding: "8px",
-            marginTop: "30px",
+            borderRadius: "5px",
           }}
         />
       </nav>
+
       <div
-        className="card-grid"
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-          gridGap: "10px",
-          width: "80%",
+          gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
+          gap: "20px",
+          padding: "20px",
         }}
       >
         {filteredCountries.map((country) => (
-          <div
-            className="card"
-            key={country.alpha3Code}
-            style={{
-              border: "1px solid #ccc",
-              padding: "20px",
-              boxShadow: "2px 2px 6px #ccc",
-              borderRadius: "5px",
-              textAlign: "center",
-            }}
-          >
-            <img
-              src={country.flags.svg}
-              alt={country.name.common}
-              style={{ width: "100px", height: "75px" }}
-            />
-            <h3>{country.name.common}</h3>
-          </div>
+          <App2 key={country.cca2} country={country} />
         ))}
       </div>
+
+      {filteredCountries.length === 0}
     </div>
   );
 };
 
-export default App;
+export default CountryFlags;
