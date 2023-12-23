@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import App2 from "./App2";
-import './App.css'
+import './App.css';
+
 const CountryFlags = () => {
   const [countries, setCountries] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -43,13 +44,13 @@ const CountryFlags = () => {
             maxWidth: "500px",
             padding: "8px",
             borderRadius: "5px",
-            marginTop: "30px"
+            marginTop:"30px"
           }}
         />
       </nav>
 
       {filteredCountries.length === 0 ? (
-        <p style={{ textAlign: 'center', marginTop: '20px' }}>No matching countries found.</p>
+        <p style={{ textAlign: 'center', marginTop: '20px' }}></p>
       ) : (
         <div
           style={{

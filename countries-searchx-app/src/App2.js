@@ -5,7 +5,7 @@ const App2 = ({ country }) => {
     <div
       style={{
         textAlign: "center",
-        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+        border:"1px solid #EEE",
         borderRadius: "8px",
         padding: "10px",
       }}
