@@ -1,6 +1,25 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 
+
+const CountryContainer = ({ country }) => (
+  <div
+    style={{
+      textAlign: "center",
+      border: "0.5px solid #EEE",
+      borderRadius: "8px",
+      padding: "10px",
+    }}
+  >
+    <img
+      src={country.flags.png}
+      alt={`${country.name.common} flag`}
+      style={{ width: "100px", height: "auto" }}
+    />
+    <p>{country.name.common}</p>
+  </div>
+);
+
 const CountryFlags = () => {
   const [countries, setCountries] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -31,17 +50,18 @@ const CountryFlags = () => {
     <div>
       <nav
         className="nav"
-        style={{ boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", padding: "10px", marginTop: "30px" }}
+        style={{ boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", padding: "10px" }}
       >
         <input
           type="text"
-          placeholder="Search for countries..."
+          placeholder="Search for a country"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           style={{
             width: "80%",
             maxWidth: "500px",
             padding: "8px",
+            marginTop: "30px"
           }}
         />
       </nav>
@@ -49,29 +69,13 @@ const CountryFlags = () => {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(140px, 2fr))",
+          gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
           gap: "20px",
           padding: "20px",
-          margin: "10px 50px",
         }}
       >
         {filteredCountries.map((country) => (
-          <div
-            key={country.cca2}
-            style={{
-              textAlign: "center",
-              border: "0.5px solid #EEEE",
-              borderRadius: "8px",
-              padding: "10px",
-            }}
-          >
-            <img
-              src={country.flags.png}
-              alt={`${country.name.common} flag`}
-              style={{ width: "100px", height: "100px" }}
-            />
-            <p>{country.name.common}</p>
-          </div>
+          <CountryContainer key={country.cca2} country={country} />
         ))}
       </div>
     </div>
