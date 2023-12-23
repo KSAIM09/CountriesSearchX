@@ -1,23 +1,6 @@
 import React, { useState, useEffect } from "react";
+import App2 from "./App2";
 import './App.css'
-const CountryContainer = ({ country }) => (
-  <div
-    style={{
-      textAlign: "center",
-      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-      borderRadius: "8px",
-      padding: "10px",
-      margin: "10px",
-    }}
-  >
-    <img
-      src={country.flags.png}
-      alt={`${country.name.common} flag`}
-      style={{ width: "100px", height: "auto" }}
-    />
-    <p>{country.name.common}</p>
-  </div>
-);
 
 const CountryFlags = () => {
   const [countries, setCountries] = useState([]);
@@ -48,7 +31,7 @@ const CountryFlags = () => {
   return (
     <div>
       <nav
-        className="nav"
+      className="nav"
         style={{ boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", padding: "10px" }}
       >
         <input
@@ -60,23 +43,25 @@ const CountryFlags = () => {
             width: "80%",
             maxWidth: "500px",
             padding: "8px",
-            marginTop: "30px",
+            borderRadius: "5px",
           }}
         />
       </nav>
 
       <div
         style={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
+          gap: "20px",
           padding: "20px",
         }}
       >
         {filteredCountries.map((country) => (
-          <CountryContainer key={country.cca2} country={country} />
+          <App2 key={country.cca2} country={country} />
         ))}
       </div>
+
+      {filteredCountries.length === 0}
     </div>
   );
 };

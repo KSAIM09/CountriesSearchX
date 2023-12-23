@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import App2 from "./App2";
-import './App.css'
+
 const CountryFlags = () => {
   const [countries, setCountries] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -30,7 +30,7 @@ const CountryFlags = () => {
   return (
     <div>
       <nav
-        className="nav"
+      className=""
         style={{ boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", padding: "10px" }}
       >
         <input
@@ -43,27 +43,24 @@ const CountryFlags = () => {
             maxWidth: "500px",
             padding: "8px",
             borderRadius: "5px",
-            marginTop: "30px"
           }}
         />
       </nav>
 
-      {filteredCountries.length === 0 ? (
-        <p style={{ textAlign: 'center', marginTop: '20px' }}>No matching countries found.</p>
-      ) : (
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
-            gap: "20px",
-            padding: "20px",
-          }}
-        >
-          {filteredCountries.map((country) => (
-            <App2 key={country.cca2} country={country} />
-          ))}
-        </div>
-      )}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
+          gap: "20px",
+          padding: "20px",
+        }}
+      >
+        {filteredCountries.map((country) => (
+          <App2 key={country.cca2} country={country} />
+        ))}
+      </div>
+
+      {filteredCountries.length === 0}
     </div>
   );
 };
