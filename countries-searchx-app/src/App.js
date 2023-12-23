@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
-import "./App.css";
-
-
+import './App.css'
 const CountryContainer = ({ country }) => (
   <div
     style={{
       textAlign: "center",
-      border: "0.5px solid black",
+      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
       borderRadius: "8px",
       padding: "10px",
+      margin: "10px",
     }}
   >
     <img
@@ -61,16 +60,16 @@ const CountryFlags = () => {
             width: "80%",
             maxWidth: "500px",
             padding: "8px",
-            marginTop: "30px"
+            marginTop: "30px",
           }}
         />
       </nav>
 
       <div
         style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
-          gap: "20px",
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
           padding: "20px",
         }}
       >
